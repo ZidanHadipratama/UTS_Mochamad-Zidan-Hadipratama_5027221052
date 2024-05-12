@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package pcmanagement;
+
+// PRC for processor
+
+// The PCService defines the gRPC service for managing PC hardware.
+service PRCServices {
+  rpc CreatePRC (PRC) returns (PRCResponse) {}
+  rpc ReadPRC (PRCRequest) returns (PRC) {}
+  rpc UpdatePRC (PRC) returns (PRCResponse) {}
+  rpc DeletePRC (PRCRequest) returns (PRCResponse) {}
+}
+
+message PRC {
+  string id = 1;
+  string name = 2;
+  string manufacturer = 3;
+  int32 generation = 4; 
+  int32 core = 5;
+  int32 thread = 6;
+}
+
+message PRCRequest {
+  string id = 1;
+}
+
+message PRCResponse {
+  PRC prc = 1;
+  string message = 2;
+}
