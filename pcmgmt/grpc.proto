@@ -1,6 +1,10 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 package pcmanagement;
+
+option go_package = "github.com/ZidanHadipratama/UTS_Mochamad-Zidan-Hadipratama_5027221052";
 
 // PRC for processor
 
@@ -10,10 +14,11 @@ service PRCServices {
   rpc ReadPRC (PRCRequest) returns (PRC) {}
   rpc UpdatePRC (PRC) returns (PRCResponse) {}
   rpc DeletePRC (PRCRequest) returns (PRCResponse) {}
+  rpc ListPRCs (google.protobuf.Empty) returns (ListPRCsResponse) {}
 }
 
 message PRC {
-  string id = 1;
+  int32 id = 1;
   string name = 2;
   string manufacturer = 3;
   int32 generation = 4; 
@@ -22,10 +27,14 @@ message PRC {
 }
 
 message PRCRequest {
-  string id = 1;
+  int32 id = 1;
 }
 
 message PRCResponse {
   PRC prc = 1;
   string message = 2;
+}
+
+message ListPRCsResponse {
+  repeated PRC prcs = 1;
 }

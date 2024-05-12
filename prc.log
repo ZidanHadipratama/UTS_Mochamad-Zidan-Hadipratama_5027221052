@@ -1,0 +1,68 @@
+PRC: 2024/05/12 22:13:56 server.go:23: Creating PRC: id:1 name:"AMD Ryzen 5" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/12 22:13:56 server.go:29: PRC created successfully: id:1 name:"AMD Ryzen 5" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/12 22:30:31 server.go:37: Listing all PRCs
+PRC: 2024/05/12 22:31:08 server.go:26: Creating PRC: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 22:31:08 server.go:32: PRC created successfully: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 22:31:11 server.go:37: Listing all PRCs
+PRC: 2024/05/12 22:32:24 server.go:37: Listing all PRCs
+PRC: 2024/05/12 22:42:04 server.go:37: Listing all PRCs
+PRC: 2024/05/12 22:44:09 server.go:63: Reading PRC: 1:1
+PRC: 2024/05/12 22:44:09 server.go:69: Failed to read PRC: mongo: no documents in result
+PRC: 2024/05/12 22:45:39 server.go:37: Listing all PRCs
+PRC: 2024/05/12 22:45:41 server.go:63: Reading PRC: 1:1
+PRC: 2024/05/12 22:45:41 server.go:69: Failed to read PRC: mongo: no documents in result
+PRC: 2024/05/12 22:51:50 server.go:63: Reading PRC: id:1
+PRC: 2024/05/12 22:51:50 server.go:69: Failed to read PRC: mongo: no documents in result
+PRC: 2024/05/12 22:55:17 server.go:63: Reading PRC: id:1
+PRC: 2024/05/12 22:55:17 server.go:69: Failed to read PRC: mongo: no documents in result
+PRC: 2024/05/12 23:06:46 server.go:63: Reading PRC: id:1
+PRC: 2024/05/12 23:06:46 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 1 AMD Ryzen 5 AMD 3 12 24}
+PRC: 2024/05/12 23:06:46 server.go:78: Updating PRC: id:1
+PRC: 2024/05/12 23:06:46 server.go:89: PRC updated successfully: id:1
+PRC: 2024/05/12 23:10:37 server.go:26: Creating PRC: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:10:37 server.go:32: PRC created successfully: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:11:14 server.go:63: Reading PRC: id:2
+PRC: 2024/05/12 23:11:14 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/12 23:11:18 server.go:78: Updating PRC: id:2
+PRC: 2024/05/12 23:11:18 server.go:89: PRC updated successfully: id:2
+PRC: 2024/05/12 23:14:08 server.go:37: Listing all PRCs
+PRC: 2024/05/12 23:24:22 server.go:26: Creating PRC: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:24:22 server.go:32: PRC created successfully: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:37:13 server.go:63: Reading PRC: id:2
+PRC: 2024/05/12 23:37:13 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/12 23:37:18 server.go:78: Updating PRC: id:2
+PRC: 2024/05/12 23:37:18 server.go:89: PRC updated successfully: id:2
+PRC: 2024/05/12 23:38:11 server.go:26: Creating PRC: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:38:11 server.go:32: PRC created successfully: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:51:58 server.go:26: Creating PRC: id:5 name:"AMD Ryzen 7" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:51:58 server.go:32: PRC created successfully: id:5 name:"AMD Ryzen 7" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/12 23:58:57 server.go:63: Reading PRC: id:2
+PRC: 2024/05/12 23:58:57 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/12 23:59:00 server.go:78: Updating PRC: id:2
+PRC: 2024/05/12 23:59:00 server.go:105: Update Result: &{1 0 0 <nil>}
+PRC: 2024/05/13 00:05:10 server.go:63: Reading PRC: id:2
+PRC: 2024/05/13 00:05:10 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/13 00:05:12 server.go:78: Updating PRC: id:2
+PRC: 2024/05/13 00:05:12 server.go:105: Update Result: &{1 0 0 <nil>}
+PRC: 2024/05/13 00:06:44 server.go:63: Reading PRC: id:2
+PRC: 2024/05/13 00:06:44 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/13 00:06:46 server.go:78: Updating PRC: id:2
+PRC: 2024/05/13 00:06:46 server.go:89: PRC updated successfully: id:2
+PRC: 2024/05/13 00:07:07 server.go:26: Creating PRC: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/13 00:07:07 server.go:32: PRC created successfully: id:2 name:"Intel Core i7" manufacturer:"Intel" generation:3 core:12 thread:24
+PRC: 2024/05/13 00:07:56 server.go:63: Reading PRC: id:2
+PRC: 2024/05/13 00:07:56 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 2 Intel Core i7 Intel 3 12 24}
+PRC: 2024/05/13 00:08:00 server.go:78: Updating PRC: id:2 name:"Core i7-12600H" manufacturer:"Intel" generation:12 core:12 thread:24
+PRC: 2024/05/13 00:08:00 server.go:89: PRC updated successfully: id:2 name:"Core i7-12600H" manufacturer:"Intel" generation:12 core:12 thread:24
+PRC: 2024/05/13 00:08:48 server.go:63: Reading PRC: id:5
+PRC: 2024/05/13 00:08:48 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 5 AMD Ryzen 7 AMD 3 12 24}
+PRC: 2024/05/13 00:08:56 server.go:78: Updating PRC: id:5 name:"Ryzen 7-3650X" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/13 00:08:56 server.go:89: PRC updated successfully: id:5 name:"Ryzen 7-3650X" manufacturer:"AMD" generation:3 core:12 thread:24
+PRC: 2024/05/13 00:09:09 server.go:63: Reading PRC: id:5
+PRC: 2024/05/13 00:09:09 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 5 Ryzen 7-3650X AMD 3 12 24}
+PRC: 2024/05/13 00:09:42 server.go:63: Reading PRC: id:5
+PRC: 2024/05/13 00:09:42 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 5 Ryzen 7-3650X AMD 3 12 24}
+PRC: 2024/05/13 00:14:11 server.go:63: Reading PRC: id:5
+PRC: 2024/05/13 00:14:11 server.go:73: PRC read successfully: {{{} [] [] <nil>} 0 [] 5 Ryzen 7-3650X AMD 3 12 24}
+PRC: 2024/05/13 00:14:14 server.go:94: Deleting PRC: id:5
+PRC: 2024/05/13 00:14:14 server.go:107: PRC deleted successfully: id:5
