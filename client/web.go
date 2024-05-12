@@ -5,13 +5,10 @@ import (
 	"net/http"
 	"log"
 
-	// "os"
-	// "fmt"
-
+	"github.com/gin-gonic/gin"
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"html/template"
 	"strconv"
 
 	pb "github.com/ZidanHadipratama/UTS_Mochamad-Zidan-Hadipratama_5027221052/pcmgmt" // replace with your protobuf package
@@ -35,119 +32,95 @@ func main() {
 
 	client := pb.NewPRCServicesClient(conn)
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	r := gin.Default()
+
+	r.Static("/assets", "/home/ika/Documents/Projects/IS/pcmgmt-grpc/client/templates/assets")
+
+	r.LoadHTMLGlob("/home/ika/Documents/Projects/IS/pcmgmt-grpc/client/templates/pages/*")
+
+	r.GET("/", func(c *gin.Context) {
 		// List all processors
 		response, err := client.ListPRCs(context.Background(), &emptypb.Empty{})
 		if err != nil {
-			http.Error(w, "Failed to list PRCs", http.StatusInternalServerError)
+			c.String(http.StatusInternalServerError, "Failed to list PRCs")
 			return
 		}
 
-		// wd, err := os.Getwd()
-		// if err != nil {
-		// 	log.Fatal(err)
-		// }
-		// fmt.Println(wd)
+		c.HTML(http.StatusOK, "dashboard.html", response.Prcs)
+	})
 
+	r.POST("/delete", func(c *gin.Context) {
+		// Get the id from the query parameters
+		id, _ := strconv.Atoi(c.Query("id"))
 
-		// Render the response in a new HTML page
-		tmpl, err := template.ParseFiles("/home/ika/Documents/Projects/IS/pcmgmt-grpc/client/templates/list.html")
+		// Delete the processor
+		_, err := client.DeletePRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
 		if err != nil {
-			log.Fatalf("Error parsing template: %v", err)
-		}
-		
-		tmpl.Execute(w, response.Prcs)
-	})
-
-	http.HandleFunc("/delete", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			// Get the id from the query parameters
-			id, _ := strconv.Atoi(r.URL.Query().Get("id"))
-	
-			// Delete the processor
-			_, err := client.DeletePRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
-			if err != nil {
-				http.Error(w, "Failed to delete PRC", http.StatusInternalServerError)
-				return
-			}
+			c.String(http.StatusInternalServerError, "Failed to delete PRC")
+			return
 		}
 	})
 
-	http.HandleFunc("/update", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			// Parse form data
-			r.ParseForm()
-			id, _ := strconv.Atoi(r.Form.Get("id"))
-			name := r.Form.Get("name")
-			manufacturer := r.Form.Get("manufacturer")
-			generation, _ := strconv.Atoi(r.Form.Get("generation"))
-			core, _ := strconv.Atoi(r.Form.Get("core"))
-			thread, _ := strconv.Atoi(r.Form.Get("thread"))
-		
-			// Update the processor
-			prc := &pb.PRC{Id: int32(id), Name: name, Manufacturer: manufacturer, Generation: int32(generation), Core: int32(core), Thread: int32(thread)}
-			_, err := client.UpdatePRC(context.Background(), prc)
-			if err != nil {
-				http.Error(w, "Failed to update PRC", http.StatusInternalServerError)
-				return
-			}
-		
-			// Redirect to the list page
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-		} else {
-			// Get the id from the query parameters
-			id, _ := strconv.Atoi(r.URL.Query().Get("id"))
-		
-			// Get the current processor
-			prc, err := client.ReadPRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
-			if err != nil {
-				http.Error(w, "Failed to get PRC", http.StatusInternalServerError)
-				return
-			}
-		
-			// Render the update form
-			tmpl, err := template.ParseFiles("/home/ika/Documents/Projects/IS/pcmgmt-grpc/client/templates/update.html")
-			if err != nil {
-				log.Fatalf("Error parsing template: %v", err)
-			}
-			tmpl.Execute(w, prc)
+	r.GET("/update", func(c *gin.Context) {
+		// Get the id from the query parameters
+		id, _ := strconv.Atoi(c.Query("id"))
+
+		// Get the current processor
+		prc, err := client.ReadPRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
+		if err != nil {
+			c.String(http.StatusInternalServerError, "Failed to get PRC")
+			return
 		}
+
+		// Render the update form
+		c.HTML(http.StatusOK, "update.html", prc)
 	})
 
-	http.HandleFunc("/add", func(w http.ResponseWriter, r *http.Request) {
-		if r.Method == "POST" {
-			// Parse form data
-			r.ParseForm()
-			name := r.Form.Get("name")
-			manufacturer := r.Form.Get("manufacturer")
-			generation, _ := strconv.Atoi(r.Form.Get("generation"))
-			core, _ := strconv.Atoi(r.Form.Get("core"))
-			thread, _ := strconv.Atoi(r.Form.Get("thread"))
-	
-			// Add the new processor
-			prc := &pb.PRC{Name: name, Manufacturer: manufacturer, Generation: int32(generation), Core: int32(core), Thread: int32(thread)}
-			_, err := client.CreatePRC(context.Background(), prc)
-			if err != nil {
-				http.Error(w, "Failed to add PRC", http.StatusInternalServerError)
-				return
-			}
-	
-			// Redirect to the list page
-			http.Redirect(w, r, "/", http.StatusSeeOther)
-		} else {
-			// Render the add form
-			tmpl, err := template.ParseFiles("/home/ika/Documents/Projects/IS/pcmgmt-grpc/client/templates/add.html")
-			if err != nil {
-				log.Fatalf("Error parsing template: %v", err)
-			}
-			tmpl.Execute(w, nil)
-		}
-	})
-	
-	
-	
-	
-	
+	r.POST("/update", func(c *gin.Context) {
+		// Parse form data
+		id, _ := strconv.Atoi(c.PostForm("id"))
+		name := c.PostForm("name")
+		manufacturer := c.PostForm("manufacturer")
+		generation, _ := strconv.Atoi(c.PostForm("generation"))
+		core, _ := strconv.Atoi(c.PostForm("core"))
+		thread, _ := strconv.Atoi(c.PostForm("thread"))
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+		// Update the processor
+		prc := &pb.PRC{Id: int32(id), Name: name, Manufacturer: manufacturer, Generation: int32(generation), Core: int32(core), Thread: int32(thread)}
+		_, err := client.UpdatePRC(context.Background(), prc)
+		if err != nil {
+			c.String(http.StatusInternalServerError, "Failed to update PRC")
+			return
+		}
+
+		// Redirect to the list page
+		c.Redirect(http.StatusSeeOther, "/")
+	})
+
+	r.GET("/add", func(c *gin.Context) {
+		// Render the add form
+		c.HTML(http.StatusOK, "add.html", nil)
+	})
+
+	r.POST("/add", func(c *gin.Context) {
+		// Parse form data
+		name := c.PostForm("name")
+		manufacturer := c.PostForm("manufacturer")
+		generation, _ := strconv.Atoi(c.PostForm("generation"))
+		core, _ := strconv.Atoi(c.PostForm("core"))
+		thread, _ := strconv.Atoi(c.PostForm("thread"))
+
+		// Add the new processor
+		prc := &pb.PRC{Name: name, Manufacturer: manufacturer, Generation: int32(generation), Core: int32(core), Thread: int32(thread)}
+		_, err := client.CreatePRC(context.Background(), prc)
+		if err != nil {
+			c.String(http.StatusInternalServerError, "Failed to add PRC")
+			return
+		}
+
+		// Redirect to the list page
+		c.Redirect(http.StatusSeeOther, "/")
+	})
+
+	log.Fatal(r.Run(":8080"))
 }
