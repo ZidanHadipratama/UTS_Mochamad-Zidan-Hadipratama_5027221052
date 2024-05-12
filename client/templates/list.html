@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>List of Processors</title>
+</head>
+<body>
+    <h1>List of Processors</h1>
+    <ul>
+        {{range .}}
+            <li>
+                <h2>{{.Name}}</h2>
+                <p>Manufacturer: {{.Manufacturer}}</p>
+                <p>Generation: {{.Generation}}</p>
+                <p>Core: {{.Core}}</p>
+                <p>Thread: {{.Thread}}</p>
+                <button onclick="location.href='/update?id={{.Id}}'" type="button">Update</button>
+                <button onclick="deleteProcessor({{.Id}})">Delete</button>
+            </li>
+        {{end}}
+    </ul>
+</body>
+<script>
+    function deleteProcessor(id) {
+        if (confirm('Are you sure you want to delete this processor?')) {
+            fetch('/delete?id=' + id, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Reload the page to reflect the changes
+                    location.reload();
+                })
+                .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                });
+        }
+    }
+</script>    
+</html>

@@ -11,6 +11,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"math/rand"
+
 	pb "github.com/ZidanHadipratama/UTS_Mochamad-Zidan-Hadipratama_5027221052/pcmgmt" // replace with your protobuf package
 )
 
@@ -117,13 +119,21 @@ func main() {
 		}
 	} else {
 		// Check if flags are provided
-		if *name == "" || *manufacturer == "" || *generation == 0 || *core == 0 || *thread == 0 || *id == 0 {
+		if *name == "" || *manufacturer == "" || *generation == 0 || *core == 0 || *thread == 0 {
 			fmt.Println("Usage: client -id=<id> -name=<name> -manufacturer=<manufacturer> -generation=<generation> -core=<core> -thread=<thread>")
 			os.Exit(1)
 		}
 
+		id := rand.Intn(1000000)
+
+		_, err := client.ReadPRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
+		for err == nil {
+			id = rand.Intn(1000000)
+			_, err = client.ReadPRC(context.Background(), &pb.PRCRequest{Id: int32(id)})
+		}
+
 		// Add a new processor
-		prc := &pb.PRC{Id: int32(*id), Name: *name, Manufacturer: *manufacturer, Generation: int32(*generation), Core: int32(*core), Thread: int32(*thread)}
+		prc := &pb.PRC{Id: int32(id), Name: *name, Manufacturer: *manufacturer, Generation: int32(*generation), Core: int32(*core), Thread: int32(*thread)}
 		response, err := client.CreatePRC(context.Background(), prc)
 		if err != nil {
 			log.Fatalf("Failed to create PRC: %v", err)

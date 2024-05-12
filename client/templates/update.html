@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Processor</title>
+</head>
+<body>
+    <h1>Update Processor</h1>
+    <form action="/update" method="post">
+        <input type="hidden" id="id" name="id" value="{{.Id}}">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{.Name}}"><br>
+        <label for="manufacturer">Manufacturer:</label><br>
+        <input type="text" id="manufacturer" name="manufacturer" value="{{.Manufacturer}}"><br>
+        <label for="generation">Generation:</label><br>
+        <input type="number" id="generation" name="generation" value="{{.Generation}}"><br>
+        <label for="core">Core:</label><br>
+        <input type="number" id="core" name="core" value="{{.Core}}"><br>
+        <label for="thread">Thread:</label><br>
+        <input type="number" id="thread" name="thread" value="{{.Thread}}"><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>
